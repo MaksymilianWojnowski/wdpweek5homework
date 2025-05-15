@@ -1,63 +1,140 @@
+<!-- part2/index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Quiz App</title>
+  <title>Interactive Quiz</title>
   <style>
+    /* Reset & base */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      font-family: Arial, sans-serif;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #f2ece2, #ff9a9e);
+      animation: gradient 30s ease infinite;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
       padding: 2rem;
-      background: #f4f4f4;
       color: #333;
-      max-width: 600px;
-      margin: auto;
+      width: 100%;
+      min-width: 100%;
+      flex-wrap: wrap;
     }
-    h1 {
+    @keyframes gradient {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    .container {
+      width: 100%;
+      max-width: 480px;
+    }
+    .card {
+      position: relative;
+      background: #fff;
+      border-radius: 16px;
+      padding: 2rem;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+      overflow: hidden;
       text-align: center;
     }
-    .quiz-box {
-      background: #fff;
-      padding: 2rem;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    .card::before {
+      content: "";
+      position: absolute;
+      top: -50%; left: -50%;
+      width: 200%; height: 200%;
+      background: radial-gradient(circle at center, rgba(255,206,186,0.3), transparent 70%);
+      animation: rotateBg 20s linear infinite;
+    }
+    @keyframes rotateBg {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
+    }
+    h1 {
+      margin-bottom: 1rem;
+      position: relative; z-index:1;
     }
     #question-count {
       font-size: 0.9rem;
       color: #777;
       margin-bottom: 1rem;
-      text-align: right;
+      position: relative; z-index:1;
     }
     #question {
       font-size: 1.2rem;
-      margin-bottom: 1rem;
+      margin-bottom: 1.5rem;
+      position: relative; z-index:1;
     }
-    .option {
-      display: block;
-      margin: 0.5rem 0;
+    #options {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+      position: relative; z-index:1;
     }
-    button {
-      margin-top: 1rem;
-      padding: 0.5rem 1rem;
+    .option-btn {
+      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+      border: none;
+      border-radius: 999px;
+      padding: 0.75rem 1rem;
       font-size: 1rem;
+      cursor: pointer;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .option-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    }
+    #nextBtn {
+      background: linear-gradient(135deg, #a0d8ef, #c2e9fb);
+      border: none;
+      border-radius: 999px;
+      padding: 0.75rem 2rem;
+      font-size: 1rem;
+      cursor: pointer;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+      transition: transform 0.2s, box-shadow 0.2s;
+      position: relative; z-index:1;
+    }
+    #nextBtn:disabled {
+      opacity: 0.5;
+      cursor: default;
+    }
+    #nextBtn:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
     }
     #result {
       margin-top: 2rem;
-      font-weight: bold;
+      font-size: 1.25rem;
+      position: relative; z-index:1;
+    }
+    footer {
+      border-top: solid 1px black;
+      min-width: 100%;
+      width: 100%;
+      margin-top: 2rem;
+      font-size: 0.85rem;
+      color: #666;
       text-align: center;
     }
   </style>
 </head>
 <body>
-
-  <h1>JavaScript Quiz</h1>
-  <div class="quiz-box">
-    <div id="question-count">Question 1 of 30</div>
-    <div id="question">Question will appear here</div>
-    <div id="options"></div>
-    <button id="nextBtn">Next</button>
-    <div id="result"></div>
+  <div class="container">
+    <div class="card">
+      <h1>Interactive Quiz</h1>
+      <div id="question-count">Question 1 of 1</div>
+      <div id="question">Loading...</div>
+      <div id="options"></div>
+      <button id="nextBtn" disabled>Next</button>
+      <div id="result"></div>
+    </div>
   </div>
+  <footer>Web Design & Programming — Spring 2025</footer>
 
   <script src="script.js"></script>
 </body>
